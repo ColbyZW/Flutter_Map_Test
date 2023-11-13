@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class OSM_Page extends StatefulWidget {
   const OSM_Page({super.key, required this.title});
@@ -55,22 +56,21 @@ class _OSMPageState extends State<OSM_Page> with OSMMixinObserver {
 
   void _showInfoScreen(context, point) {
     showModalBottomSheet(useRootNavigator: true, context: context, builder: (BuildContext bc) {
-      return SizedBox(
+      return PointerInterceptor(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height * 0.6,
           width: MediaQuery.of(context).size.width * 1,
           child: Column(
             children: [
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: CloseButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                )
+              CloseButton(
+                onPressed: () => Navigator.of(context).pop(),
               ),
               Center(
                   child: Text("Marker (${point.latitude}, ${point.longitude})")
               )
             ],
           )
+        )
       );
     });
   }
