@@ -60,8 +60,11 @@ class _OSMPageState extends State<OSM_Page> with OSMMixinObserver {
           width: MediaQuery.of(context).size.width * 1,
           child: Column(
             children: [
-              CloseButton(
-                onPressed: () => print("CLICKED"),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: CloseButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                )
               ),
               Center(
                   child: Text("Marker (${point.latitude}, ${point.longitude})")
